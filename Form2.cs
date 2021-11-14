@@ -109,5 +109,13 @@ namespace FileComparer
             }
             return true;
         }
+
+        private void ToMainButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var form1 = new Form1();
+            form1.Closed += (s, args) => this.Close();
+            form1.Show();
+        }
     }
 }

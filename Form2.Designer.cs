@@ -32,6 +32,7 @@ namespace FileComparer
             this.infoText = new System.Windows.Forms.Label();
             this.uniqueColumns = new System.Windows.Forms.ComboBox();
             this.compareAndDownloadDownload = new System.Windows.Forms.Button();
+            this.ToMainButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // infoText
@@ -39,7 +40,7 @@ namespace FileComparer
             this.infoText.AutoSize = true;
             this.infoText.Font = new System.Drawing.Font("Segoe UI Symbol", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.infoText.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.infoText.Location = new System.Drawing.Point(68, 54);
+            this.infoText.Location = new System.Drawing.Point(70, 66);
             this.infoText.Name = "infoText";
             this.infoText.Size = new System.Drawing.Size(504, 35);
             this.infoText.TabIndex = 0;
@@ -62,6 +63,7 @@ namespace FileComparer
             // compareAndDownloadDownload
             // 
             this.compareAndDownloadDownload.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.compareAndDownloadDownload.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.compareAndDownloadDownload.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.compareAndDownloadDownload.ForeColor = System.Drawing.SystemColors.Window;
             this.compareAndDownloadDownload.Location = new System.Drawing.Point(219, 200);
@@ -72,12 +74,29 @@ namespace FileComparer
             this.compareAndDownloadDownload.UseVisualStyleBackColor = false;
             this.compareAndDownloadDownload.Click += new System.EventHandler(this.compareAndDownloadDownload_Click_1);
             // 
+            // ToMainButton
+            // 
+            this.ToMainButton.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.ToMainButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuHighlight;
+            this.ToMainButton.FlatAppearance.BorderSize = 0;
+            this.ToMainButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ToMainButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ToMainButton.ForeColor = System.Drawing.SystemColors.Menu;
+            this.ToMainButton.Location = new System.Drawing.Point(0, 0);
+            this.ToMainButton.Name = "ToMainButton";
+            this.ToMainButton.Size = new System.Drawing.Size(113, 41);
+            this.ToMainButton.TabIndex = 3;
+            this.ToMainButton.Text = "go back";
+            this.ToMainButton.UseVisualStyleBackColor = false;
+            this.ToMainButton.Click += new System.EventHandler(this.ToMainButton_Click);
+            // 
             // SelectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(628, 343);
+            this.Controls.Add(this.ToMainButton);
             this.Controls.Add(this.compareAndDownloadDownload);
             this.Controls.Add(this.uniqueColumns);
             this.Controls.Add(this.infoText);
@@ -98,5 +117,6 @@ namespace FileComparer
         private System.Windows.Forms.Button compareAndDownloadDownload;
         private System.Windows.Forms.Button compareAndDownloadDownload_Click;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ToMainButton;
     }
 }
