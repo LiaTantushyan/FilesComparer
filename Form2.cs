@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FileComparer
@@ -19,18 +21,45 @@ namespace FileComparer
             InitializeComponent();
         }
 
-        private void compareAndDownloadDownload_Click_1(object sender, EventArgs e)
+        private async void compareAndDownloadDownload_Click_1(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(uniqueColumns.Text))
+            string column = uniqueColumns.Text;
+            if (string.IsNullOrEmpty(column))
             {
+                MessageBox.Show("Select value to compare!",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                label1.Visible = false;
                 return;
             }
-            var dataFromXml = XmlService.GetDataFromXml(Constants.XmlPath, uniqueColumns.Text);
-            var dataFromExcel = ExcelService.GetDataFromExcel(Constants.ExcelPath, uniqueColumns.Text);
+
+            label1.Visible = true;
+            try
+            {
+                await Task.Run(() => ValidateFiles(column));
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Something went wrong, please try again!",
+                   "Error",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+            }
+            finally
+            {
+                label1.Visible = false;
+            }
+        }
+
+        private async Task ValidateFiles(string column)
+        {
+            var dataFromXml = await XmlService.GetDataFromXml(Constants.XmlPath, column);
+            var dataFromExcel = await ExcelService.GetDataFromExcel(Constants.ExcelPath, column);
 
             if (dataFromXml == null)
             {
-                MessageBox.Show($"There are not any {uniqueColumns.Text}s or something is wrong in your file",
+                MessageBox.Show($"There are not any {column}s or something is wrong in your file",
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -42,7 +71,7 @@ namespace FileComparer
 
                 if (dataDifference.Count != 0)
                 {
-                    CreateExcelFile(dataDifference);
+                    CreateExcelFile(dataDifference, column);
                 }
                 else
                 {
@@ -54,22 +83,21 @@ namespace FileComparer
             }
             else
             {
-                MessageBox.Show($"There are not any {uniqueColumns.Text}s or something is wrong in your file",
+                MessageBox.Show($"There are not any {column}s or something is wrong in your file",
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
         }
 
-
-        private void CreateExcelFile(List<string> data)
+        private void CreateExcelFile(List<string> data, string column)
         {
             var stream = new MemoryStream();
             using (var package = new ExcelPackage(stream))
             {
                 var worksheet = package.Workbook.Worksheets.Add("Differences");
                 worksheet.DefaultColWidth = 20;
-                worksheet.Cells["A1"].Value = uniqueColumns.Text;
+                worksheet.Cells["A1"].Value = column;
                 worksheet.Cells["A1"].Style.Font.Bold = true;
                 worksheet.Cells["A2"].LoadFromCollection(data);
                 var row = worksheet.Dimension.End.Row;
@@ -82,8 +110,6 @@ namespace FileComparer
                         "Success",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.None);
-
-                    compareAndDownloadDownload.Enabled = false;
                     return;
                 }
                 else

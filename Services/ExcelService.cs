@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using OfficeOpenXml;
 
 namespace ASCIWebApp.Services
 {
     public static class ExcelService
     {
-        public static List<string> GetDataFromExcel(string filePath, string uniqueColumn)
+        public static async Task<List<string>> GetDataFromExcel(string filePath, string uniqueColumn)
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -21,8 +22,8 @@ namespace ASCIWebApp.Services
                         for (int column = 1; column <= worksheet.Dimension.End.Column; column++)
                         {
                             int row = 1;
-                            var cell = worksheet.Cells[row, column];
-                            if (cell != null && cell.Value.ToString().Equals(uniqueColumn, StringComparison.OrdinalIgnoreCase))
+                            var cellValue = worksheet.Cells[row, column].Value;
+                            if (cellValue != null && cellValue.ToString().Equals(uniqueColumn, StringComparison.OrdinalIgnoreCase))
                             {
                                 while (row < worksheet.Dimension.End.Row)
                                 {

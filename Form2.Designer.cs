@@ -33,6 +33,7 @@ namespace FileComparer
             this.uniqueColumns = new System.Windows.Forms.ComboBox();
             this.compareAndDownloadDownload = new System.Windows.Forms.Button();
             this.ToMainButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // infoText
@@ -90,12 +91,25 @@ namespace FileComparer
             this.ToMainButton.UseVisualStyleBackColor = false;
             this.ToMainButton.Click += new System.EventHandler(this.ToMainButton_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label1.Location = new System.Drawing.Point(258, 269);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(157, 28);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Downloading . . .";
+            this.label1.Visible = false;
+            // 
             // SelectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(628, 343);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.ToMainButton);
             this.Controls.Add(this.compareAndDownloadDownload);
             this.Controls.Add(this.uniqueColumns);
@@ -118,5 +132,6 @@ namespace FileComparer
         private System.Windows.Forms.Button compareAndDownloadDownload_Click;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button ToMainButton;
+        private System.Windows.Forms.Label label1;
     }
 }
